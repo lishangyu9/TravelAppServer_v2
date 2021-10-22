@@ -27,21 +27,31 @@ Development Tools:
 Installing:
 1. git clone https://github.com/andy30sh/TravelAppServer_v2.git
 2. config mailac.js
-    2.1 Open mailac.js file with code editor
-    2.2 Edit the SMTP server config, e.g. for your own Google mail account
-    2.3 Save the file
+    2.1. Open mailac.js file with code editor
+    2.2. Edit the SMTP server config, e.g. for your own Google mail account
+    2.3. Save the file
 3. npm install
-4. npm run start
+4. Initial database content (Optional)
+    4.1. Open server.js file with code editor
+    4.2. Change the value of 'isDbInit' to 'true' e.g. 'const isDbInit = true;'
+    4.3. Save the file
+    4.4. Execute app by run command 'npm run start'
+    4.5. After execute complete (message will shown in console)
+    4.6. Revert the value of 'isDbInit' to 'false', then save file
+    Remark: all users with the default password as 'password123456'
+
+Executing:
+1. npm run start
 
 Testing:
 1. When you see the 'Travel App Server RESTful API server started on: 8088' message in console mean server ready for accept connection from port 8088
 2. Use Postman program as the RESTful client
-    2.1 Enter URL and select the method (GET or POST) e.g. http://localhost:8088/user/forget (POST)
-    2.2 Click 'Body' tag and select 'x-www-form-urlencoded' tag
-    2.3 Enter 'Key' and 'Value' for request parameters
-    2.4 Click 'Send' to submit the request
-    2.5 Get the response result in bottom session
-    2.6 Click 'Save' to store and reuse the request
+    2.1. Enter URL and select the method (GET or POST) e.g. http://localhost:8088/user/forget (POST)
+    2.2. Click 'Body' tag and select 'x-www-form-urlencoded' tag
+    2.3. Enter 'Key' and 'Value' for request parameters
+    2.4. Click 'Send' to submit the request
+    2.5. Get the response result in bottom session
+    2.6. Click 'Save' to store and reuse the request
 
 
 RESTful APIs:
@@ -214,8 +224,73 @@ return error message e.g. Change password fail!
 
 
 8.	RESTful API – Destination list
-Pending to edit
+Path:
+/dest/lise     e.g,. http://localhost:8088/dest/list?token=I68CPJLhD1qPzf3m
+Method (POST/GET):
+GET
+Request Parameters:
+•	token (mandatory)
+Response Result	Success: 
+return (JSON) {user_login, login_token, last_login_date}
+[
+    {
+        "_id": "61729173c6019960f924d431",
+        "dest_code": "syd",
+        "dest_name": "Sydney",
+        "dest_region": "NSW",
+        "__v": 0
+    },
+    {
+        "_id": "61729173c6019960se54d431",
+        "dest_code": "nst",
+        "dest_name": "Newcastle",
+        "dest_region": "NSW",
+        "__v": 0
+    },
+    {
+        "_id": "61729173c6019960f924d432",
+        "dest_code": "ade",
+        "dest_name": "Adelaide",
+        "dest_region": "SA",
+        "__v": 0
+    },
+    {
+        "_id": "61729we3c6019960f9247542",
+        "dest_code": "vch",
+        "dest_name": "Victor Harbor",
+        "dest_region": "SA",
+        "__v": 0
+    }
+]
+Fail: 
+return error message e.g. Unauthorised access!
 
 
 9.	RESTful API – Destination information 
-Pending to edit
+Path:
+/dest/info     e.g,. http://localhost:8088/dest/list?token=I68CPJLhD1qPzf3m&destCode=ade
+Method (POST/GET):
+GET
+Request Parameters:
+•	token (mandatory)
+•	destCode (mandatory)
+Response Result	Success: 
+return (JSON) {user_login, login_token, last_login_date}
+{
+  "_id": {
+    "$oid": "61729173c6019960f924d435"
+  },
+  "dest_code": "ade",
+  "border_status": "Opening",
+  "covid_status": "Low",
+  "lockdown_status": "None",
+  "covid_dashboard_link": "googel.com/covid_dashboard_link1",
+  "Activity_restriction_link": "googel.com/Activity_restriction_link1",
+  "travel_restriction_link": "googel.com/travel_restriction_link1",
+  "last_update_date": {
+    "$date": "2021-10-22T10:24:51.850Z"
+  },
+  "__v": 0
+}
+Fail: 
+return error message e.g. Unauthorised access! or Dest info not found!

@@ -1,3 +1,5 @@
+const isDbInit = false;   // true to import initial database content
+
 var express = require('express'),
     app = express(),
     port = process.env.PORT || 8088,
@@ -11,23 +13,23 @@ var express = require('express'),
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/TravelApp'); 
 
-dbInit.initData();
+if (isDbInit) {
+    console.log('Database content initial');
+    dbInit.initData(); // execute datebase content initial 
+}
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var routes = require('./api/routes/userRoute'); //importing route
+var userRoutes = require('./api/routes/userRoute'); //importing route
 var destRoutes = require('./api/routes/destRoute'); //importing dest route
 
-routes(app); //register the route
+userRoutes(app); //register the route
 destRoutes(app); //register the route
-
-// app.use('/dest', destRoutes);   //register dest route
 
 app.use(function(req, res) {
     res.status(404).send({url: req.originalUrl + ' not found'})
 });
 
 app.listen(port);
-
 console.log('Travel App Server RESTful API server started on: ' + port);
