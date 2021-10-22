@@ -8,13 +8,13 @@ var mongoose = require('mongoose'),
 exports.initData = function(req, res) {
 
     Dest.deleteMany({}, function (err) {
-        console.log("success");
+        //console.log("success");
         const fs = require('fs');
 
         fs.readFile('./destdata/destListData.json', (err, data) => {
             if (err) throw err;
             destListData = JSON.parse(data);
-            console.log(destListData);
+            //console.log(destListData);
     
             destListData.forEach(function(data) {
                 new Dest( data ).save();
@@ -23,14 +23,14 @@ exports.initData = function(req, res) {
     });
     
     DestInfo.deleteMany({}, function (err) {
-        console.log("success");
+        //console.log("success");
 
         const fs = require('fs');
   
         fs.readFile('./destdata/destInfoData.json', (err, data) => {
             if (err) throw err;
             destInfoData = JSON.parse(data);
-            console.log(destInfoData);
+            //console.log(destInfoData);
     
             destInfoData.forEach(function(data) {
                 new DestInfo( data ).save();
